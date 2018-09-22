@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Memory Game</title>
+    <style>
+    .timer {
+        width: 10vw;
+        height: 3vh;   
+        background-color:rgb(180, 192, 186); 
+        border: 5px solid black;
+        padding: 15px;
+        margin-top:5px;
+    }
+    .container {
+        width: 29vw;
+        height: auto;   
+        background-color:rgb(74, 107, 92); 
+        border: 5px solid black;
+        padding: 15px;
+        font-size: 20pt;
+        color: white;
+    }
+    .card {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(248, 248, 135);
+        border-radius: 10px;
+        border: 3px solid black;
+        display: inline-block;
+        padding: 2px;
+        position: relative;
+        vertical-align: top;
+    }
+    .button {
+        margin-left: 3vw;
+    }
+</style>    
+    <script>
+        pictureSrcArray = ['Cats', 'Dinosaurs', 'Harry Potter'];
+        pictureSrcArrayCats = ['https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Maine_Coon_female.jpg/100px-Maine_Coon_female.jpg', 'https://www.ufaw.org.uk/images/landing-blocks/welfare-cats-(5).jpg', 'https://www.ufaw.org.uk/images/landing-blocks/welfare-cats-(1).jpg', 'https://www.cat-health-behavior.com/wp-content/uploads/2018/09/cat-diet-100x100.jpeg','https://yt3.ggpht.com/a-/AN66SAzJ91c0aaPkNRLSmw2kjINA54H51Ec96so1eQ=s100-mo-c-c0xffffffff-rj-k-no','http://www.pethealthnetwork.com/sites/default/files/8-common-myths-about-surgery-and-cats-483673863.jpg','https://www.ufaw.org.uk/images/landing-blocks/welfare-cats-(1).jpg', 'https://www.cat-health-behavior.com/wp-content/uploads/2018/09/cat-diet-100x100.jpeg','https://yt3.ggpht.com/a-/AN66SAzJ91c0aaPkNRLSmw2kjINA54H51Ec96so1eQ=s100-mo-c-c0xffffffff-rj-k-no','http://www.pethealthnetwork.com/sites/default/files/8-common-myths-about-surgery-and-cats-483673863.jpg', 'https://www.ufaw.org.uk/images/landing-blocks/welfare-cats-(5).jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Maine_Coon_female.jpg/100px-Maine_Coon_female.jpg'];
+        pictureSrcArrayDinosaurs = ['https://images.mediabakery.com/STT/Z01/STT1003948-kl7-initial-public.jpg','https://images.mediabakery.com/STT/Z01/STT1003948-kl7-initial-public.jpg','https://www.sonaedons.com/wp-content/uploads/1215-Jurassic-Age-Dinosaur-2-100x100.jpg','https://www.sonaedons.com/wp-content/uploads/1215-Jurassic-Age-Dinosaur-2-100x100.jpg','https://yt3.ggpht.com/--NipGuwpDcI/AAAAAAAAAAI/AAAAAAAAAAA/oeBb2bgy6i0/s100-mo-c-c0xffffffff-rj-k-no/photo.jpg','https://yt3.ggpht.com/--NipGuwpDcI/AAAAAAAAAAI/AAAAAAAAAAA/oeBb2bgy6i0/s100-mo-c-c0xffffffff-rj-k-no/photo.jpg','https://www.toysntuck.co.uk/image-cache/s/c/h/l/e/schleich-dinosaurs-14568-stegosaurus-b2633239ec23482e084509311368ab15eab62efe.jpeg','https://www.toysntuck.co.uk/image-cache/s/c/h/l/e/schleich-dinosaurs-14568-stegosaurus-b2633239ec23482e084509311368ab15eab62efe.jpeg','https://www.madaboutscience.com.au/shop/media/catalog/category/Dinosaurs.jpg','https://www.madaboutscience.com.au/shop/media/catalog/category/Dinosaurs.jpg','https://s.yimg.com/aah/prehistory/14543-schleich-cretaceous-giganotosaurus-replica-dinosaur-collectible-model-figure-animal-toy-26.jpg','https://s.yimg.com/aah/prehistory/14543-schleich-cretaceous-giganotosaurus-replica-dinosaur-collectible-model-figure-animal-toy-26.jpg'];
+        pictureSrcArrayHarryPotter = ['https://qph.fs.quoracdn.net/main-thumb-t-28617-100-kjscsfjjuobtzkzajrujtilfrwvsgdhj.jpeg','https://qph.fs.quoracdn.net/main-thumb-t-28617-100-kjscsfjjuobtzkzajrujtilfrwvsgdhj.jpeg','https://media.pocketgamer.biz/2017/11/83701/harry-potter-r100x100.jpg','https://media.pocketgamer.biz/2017/11/83701/harry-potter-r100x100.jpg','https://qph.fs.quoracdn.net/main-thumb-t-15475-100-ZUfaYuIrvZbn9vGd27SJnJcKcxlkv759.jpeg','https://qph.fs.quoracdn.net/main-thumb-t-15475-100-ZUfaYuIrvZbn9vGd27SJnJcKcxlkv759.jpeg','http://images6.fanpop.com/image/photos/33300000/Lupin-Icon-remus-lupin-33390977-100-100.jpg','http://images6.fanpop.com/image/photos/33300000/Lupin-Icon-remus-lupin-33390977-100-100.jpg','http://images4.fanpop.com/image/photos/21600000/icon-hermione-granger-21688797-100-100.gif','http://images4.fanpop.com/image/photos/21600000/icon-hermione-granger-21688797-100-100.gif','http://cf.mp-cdn.net/e7/f4/87df8913c7110cd3900a8082d4e8-professor-minerva-mcgonagall.png','http://cf.mp-cdn.net/e7/f4/87df8913c7110cd3900a8082d4e8-professor-minerva-mcgonagall.png'];
+        pictureSrcArrayDonuts = [];
+        pictureSrcArrayFamousCars = [];
+        
+        
+        pictureRand = "";
+        previousPictureSrc = "";
+        previousId = "";
+        counter = 0;
+        function drawBoard(chosenBoard) {
+            if (chosenBoard === 'Cats'){
+                shuffleArray(pictureSrcArrayCats);
+                arrayToDisplay = pictureSrcArrayCats;
+            } else if (chosenBoard === 'Dinosaurs') {
+                shuffleArray(pictureSrcArrayDinosaurs);
+                arrayToDisplay = pictureSrcArrayDinosaurs;
+            } else if (chosenBoard === 'Harry Potter'){
+                shuffleArray(pictureSrcArrayHarryPotter);
+                arrayToDisplay = pictureSrcArrayHarryPotter;
+            }
+            document.getElementById('container').innerHTML = "";
+            
+            var i = 0;
+            while (i < 12) {
+                if (!document.getElementById('card' + i)) {
+                    var ele = document.createElement("div");
+                    ele.setAttribute("id", "card" + i);
+                    ele.setAttribute("class", "card");
+                    ele.setAttribute("onclick", `showPicture('card${i}', '${randPicture(i,arrayToDisplay)}')`);                    
+                    container.appendChild(ele);
+                }
+                i++;
+            }
+            document.getElementById("container2").innerHTML = '<div class="timer"><span id="minutes"></span>:<span id="seconds"></span></div>';
+            
+
+        }
+            sec = 40;
+            function pad ( val ) { 
+                return val > 9 ? val : "0" + val;  
+            
+            }
+            
+            setInterval( function(){
+                document.getElementById("seconds").innerHTML=pad(--sec%60);
+                document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+                if (sec === -1){
+                console.log("You ran the timer out!");
+                alert("You lost the game!!!");
+                location.reload(); }
+            }, 1000);
+            
+            
+
+            
+        window.onload = function() {
+            var container = document.getElementById('container');
+            var i = 1;
+            var j = 0;
+            var val = "";
+            container.innerHTML = "Which board would you like to play?"
+            while (j < 3) {
+                if (!document.getElementById('button' + j)) {
+                    var ele = document.createElement("button");
+                    ele.setAttribute("id", "button" + j);
+                    ele.setAttribute("class", "button");
+                    ele.setAttribute("type", "button");
+                    ele.setAttribute("onclick", `drawBoard('${pictureSrcArray[j]}')`);                                      
+                    container.appendChild(ele);
+                }
+                j++;
+            }
+            var j= 0;
+            while (j<3){
+                document.getElementById(`button${j}`).innerHTML = pictureSrcArray[j];
+                j++;
+            }
+            
+            
+            
+        }
+        function randPicture(position/*, arrayToDisplay*/) {                       
+            return arrayToDisplay[position];
+        }
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
+            }
+        }
+        function sameCard(currentDocument,previousDocument) {
+            currentDocument.innerHTML = "";
+            previousDocument.innerHTML = "";
+            currentDocument.style.backgroundColor = "rgb(156, 185, 247)";
+            previousDocument.style.backgroundColor = "rgb(156, 185, 247)";
+            previousId="";
+            previousPictureSrc="";
+            counter += 1;
+            if(counter === 6)
+            {
+                alert("You won the game!!!");
+                for(var i = 1; i < 9; i++){
+                    document.getElementById(`card${i}`).style.backgroundColor = "rgb(248, 248, 135)";
+                    counter = 0;
+                    location.reload();
+                }                
+            }
+        }
+        function differentCard(currentDocument,previousDocument) {
+            currentDocument.innerHTML = "";
+            previousDocument.innerHTML = "";
+            currentDocument.style.backgroundColor = "rgb(248, 248, 135)";
+            previousDocument.style.backgroundColor = "rgb(248, 248, 135)";
+            previousId="";
+            previousPictureSrc="";
+        }
+        function showPicture(currentId, currentPictureSrc)
+        {
+            currentDocument = document.getElementById(currentId);
+            if(previousPictureSrc === "") {
+            previousPictureSrc = currentPictureSrc;
+            previousId = currentId;
+            currentDocument.innerHTML = `<img src=${currentPictureSrc}>`;
+            } else {
+                currentDocument.innerHTML = `<img src=${currentPictureSrc}>`;
+                if (previousPictureSrc != ""){
+                    previousDocument = document.getElementById(previousId);
+                    if(currentDocument.innerHTML === (`<img src="${previousPictureSrc}">`)) {                                               
+                        setTimeout(function() { sameCard(currentDocument, previousDocument); },500);                        
+                    } else {                                               
+                        setTimeout(function() { differentCard(currentDocument, previousDocument); },500);
+                    }
+                }
+            }
+            
+
+        }
+        
+    </script>
+</head>
+<body>
+    <div class = "container" id="container">
+        
+    
+    </div>
+    <div class ="container2" id = "container2">
+
+    </div>
+</body>
+</html>
